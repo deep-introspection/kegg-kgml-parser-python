@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: genes with auto-interactions (e.g. ALG11)
+desc: some genes interact with theirselves. find how networkx can understand this issue
+type: :task
+component: to_discuss
+release: 
+reporter: Giovanni Dall'Olio <gioby@dayhoff>
+status: :unstarted
+disposition: 
+creation_time: 2009-05-21 16:15:38.730355 Z
+references: []
+
+id: b042754cc054667d742b69d75d5242c28b9771fc
+log_events: 
+- - 2009-05-21 16:15:39.710180 Z
+  - Giovanni Dall'Olio <gioby@dayhoff>
+  - created
+  - ""
