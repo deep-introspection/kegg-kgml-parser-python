@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: fix all the gene name ending with '..'
+desc: probably removing the '..' will be enought
+type: :task
+component: to_discuss
+release: 
+reporter: Giovanni Dall'Olio <gioby@dayhoff>
+status: :unstarted
+disposition: 
+creation_time: 2009-05-22 16:44:19.971112 Z
+references: []
+
+id: 5dbb57a800beed2a197d3852a0ccedb2370d7c16
+log_events: 
+- - 2009-05-22 16:44:20.536934 Z
+  - Giovanni Dall'Olio <gioby@dayhoff>
+  - created
+  - ""
