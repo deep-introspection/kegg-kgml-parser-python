@@ -28,6 +28,9 @@ def KGML2Graph(xmlfile):
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
             title = el.find('graphics').attrib['name']
+            # little hack
+            if title[-3:] == '...':
+                title = title[:-3]
             nodes[id] = (name, title, el.attrib['type'])
             if el.attrib['type'] == 'gene':
                 graph.add_node(title)
