@@ -42,5 +42,8 @@ def KGML2Graph(xmlfile):
    
     return graph, nodes, genes, reactions
 
+def plot_starlike(graph):
+    networkx.draw_circular(graph)
+
 if __name__ == '__main__':
-    KGML2Graph('hsa00510_n-glycan.xml')
+    (graph, nodes, genes, reactions) = KGML2Graph('hsa00510_n-glycan.xml')
