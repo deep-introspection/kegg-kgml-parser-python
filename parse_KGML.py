@@ -51,6 +51,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     # parse and add nodes
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
+        logging.debug(el.attrib['type'] + ' ' + el.attrib['id'])
         if el.attrib['type'] in entriestype:       # something else?
             name = el.attrib['name']
             id = el.attrib['id']
@@ -63,20 +64,20 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
             nodes[id] = (name, title, el.attrib['type'])
             if el.attrib['type'] == 'gene':
                 graph.add_node(title)
-    print nodes
+#    print nodes
 
     # parse and add relations
     for rel in tree.getiterator('relation'):
         e1 = rel.attrib['entry1']
         e2 = rel.attrib['entry2']
-        print e1, e2
+#        print e1, e2
 #        print 'e1 ', nodes[e1]
 #        print 'e2 ', nodes[e2] 
 
-        for node in nodes[e1][0].split():
-            print e1, node
-        for node in nodes[e2][0].split():
-            print e2, node
+#        for node in nodes[e1][0].split():
+#            print e1, node
+#        for node in nodes[e2][0].split():
+#            print e2, node
         graph.add_edge(nodes[e1][1], nodes[e2][1])
    
     return tree, graph, nodes, genes, reactions
@@ -86,6 +87,17 @@ def plot_starlike(graph):
 
 if __name__ == '__main__':
     import sys
-    pathwayfile = sys.argv[1]
-    print pathwayfile
-    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, 'ko')
+    import argparse
+    parser = argparse.ArgumentParser(description='parse a KGML pathway file and convert it to python/gml/image')
+    parser.add_argument('-pathwayfile', '--pathway', dest='pathwayfile', type=str, default='data/hsa00510.xml')
+    parser.add_argument('-type', dest='pathwaytype', type=str, choices=['ko', 'k', 'generic', 'general', 'organism', 'o'], 
+                    default='o', help='type of the pathway (ko or specific to an organism?)')
+    parser.add_argument('-d', '-draw', dest='draw_to_image', action='store_true', default=False)
+    parser.add_argument('-c', '-draw_circular', dest='draw_circular', action='store_true', default=False)
+    args = parser.parse_args()
+    print args
+
+    pathwayfile = args.pathwayfile
+    pathwaytype = args.pathwaytype
+
+    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, pathwaytype)
