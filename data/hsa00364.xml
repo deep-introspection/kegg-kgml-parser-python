@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!DOCTYPE pathway SYSTEM "http://www.genome.jp/kegg/xml/KGML_v0.6.1_.dtd">
+<!-- Creation date: Apr 22 2009 17:59:09 +0900 (JST) -->
+<pathway name="path:hsa00364" org="hsa" number="00364"
+         title="Fluorobenzoate degradation"
+         image="http://www.genome.jp/kegg/pathway/hsa/hsa00364.gif"
+         link="http://www.genome.jp/dbget-bin/show_pathway?hsa00364">
+    <entry id="1" name="cpd:C02364" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02364">
+        <graphics name="C02364" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="94" y="268" width="8" height="8"/>
+    </entry>
+    <entry id="2" name="ko:K03384" type="ortholog">
+        <graphics name="K03384" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="698" y="404" width="46" height="17"/>
+    </entry>
+    <entry id="3" name="ko:K03384" type="ortholog">
+        <graphics name="K03384" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="571" y="404" width="46" height="17"/>
+    </entry>
+    <entry id="4" name="hsa:134147" type="gene" reaction="rn:R08121"
+        link="http://www.genome.jp/dbget-bin/www_bget?hsa+134147">
+        <graphics name="CMBL" fgcolor="#000000" bgcolor="#BFFFBF"
+             type="rectangle" x="732" y="329" width="46" height="17"/>
+    </entry>
+    <entry id="5" name="hsa:134147" type="gene" reaction="rn:R08120"
+        link="http://www.genome.jp/dbget-bin/www_bget?hsa+134147">
+        <graphics name="CMBL" fgcolor="#000000" bgcolor="#BFFFBF"
+             type="rectangle" x="732" y="268" width="46" height="17"/>
+    </entry>
+    <entry id="6" name="cpd:C16474" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16474">
+        <graphics name="C16474" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="493" y="329" width="8" height="8"/>
+    </entry>
+    <entry id="7" name="path:map00362" type="map"
+        link="http://www.genome.jp/kegg/pathway/map/map00362.html">
+        <graphics name="Benzoate degradation via hydroxylation" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="roundrectangle" x="836" y="208" width="119" height="34"/>
+    </entry>
+    <entry id="8" name="cpd:C00090" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C00090">
+        <graphics name="C00090" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="918" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="9" name="cpd:C16484" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16484">
+        <graphics name="C16484" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="768" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="10" name="ko:K00224" type="ortholog">
+        <graphics name="K00224" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="436" y="404" width="46" height="17"/>
+    </entry>
+    <entry id="11" name="ko:K03381" type="ortholog">
+        <graphics name="K03381" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="425" y="268" width="46" height="17"/>
+    </entry>
+    <entry id="12" name="ko:K05549 ko:K05550 ko:K05784" type="ortholog">
+        <graphics name="K05549..." fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="156" y="329" width="46" height="17"/>
+    </entry>
+    <entry id="13" name="path:map00623" type="map"
+        link="http://www.genome.jp/kegg/pathway/map/map00623.html">
+        <graphics name="2,4-Dichlorobenzoate degradation" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="roundrectangle" x="450" y="495" width="121" height="34"/>
+    </entry>
+    <entry id="14" name="cpd:C02949" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02949">
+        <graphics name="C02949" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="260" y="496" width="8" height="8"/>
+    </entry>
+    <entry id="15" name="ko:K05549 ko:K05550 ko:K05784" type="ortholog">
+        <graphics name="K05549..." fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="156" y="405" width="46" height="17"/>
+    </entry>
+    <entry id="16" name="ko:K05783" type="ortholog">
+        <graphics name="K05783" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="290" y="405" width="46" height="17"/>
+    </entry>
+    <entry id="17" name="ko:K05549 ko:K05550 ko:K05784" type="ortholog">
+        <graphics name="K05549..." fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="156" y="140" width="46" height="17"/>
+    </entry>
+    <entry id="19" name="ko:K05549 ko:K05550 ko:K05784" type="ortholog">
+        <graphics name="K05549..." fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="156" y="200" width="46" height="17"/>
+    </entry>
+    <entry id="21" name="cpd:C16476" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16476">
+        <graphics name="C16476" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="646" y="329" width="8" height="8"/>
+    </entry>
+    <entry id="22" name="cpd:C16473" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16473">
+        <graphics name="C16473" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="363" y="329" width="8" height="8"/>
+    </entry>
+    <entry id="23" name="cpd:C16475" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16475">
+        <graphics name="C16475" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="493" y="268" width="8" height="8"/>
+    </entry>
+    <entry id="24" name="cpd:C16472" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16472">
+        <graphics name="C16472" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="363" y="268" width="8" height="8"/>
+    </entry>
+    <entry id="25" name="cpd:C02222" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02222">
+        <graphics name="C02222" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="801" y="329" width="8" height="8"/>
+    </entry>
+    <entry id="26" name="ko:K01856" type="ortholog">
+        <graphics name="K01856" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="566" y="329" width="46" height="17"/>
+    </entry>
+    <entry id="27" name="ko:K05783" type="ortholog">
+        <graphics name="K05783" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="290" y="268" width="46" height="17"/>
+    </entry>
+    <entry id="28" name="ko:K01860" type="ortholog">
+        <graphics name="K01860" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="566" y="268" width="46" height="17"/>
+    </entry>
+    <entry id="29" name="ko:K05783" type="ortholog">
+        <graphics name="K05783" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="290" y="329" width="46" height="17"/>
+    </entry>
+    <entry id="30" name="ko:K03381" type="ortholog">
+        <graphics name="K03381" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="425" y="329" width="46" height="17"/>
+    </entry>
+    <entry id="31" name="ko:K05549 ko:K05550 ko:K05784" type="ortholog">
+        <graphics name="K05549..." fgcolor="#000000" bgcolor="#FFFFFF"
+             type="rectangle" x="156" y="268" width="46" height="17"/>
+    </entry>
+    <entry id="34" name="path:hsa00364" type="map"
+        link="http://www.genome.jp/dbget-bin/www_bget?pathway+hsa00364">
+        <graphics name="TITLE:Fluorobenzoate degradation" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="roundrectangle" x="169" y="57" width="258" height="25"/>
+    </entry>
+    <entry id="35" name="cpd:C11272" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C11272">
+        <graphics name="C11272" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="632" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="36" name="cpd:C02371" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02371">
+        <graphics name="C02371" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="93" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="37" name="cpd:C16480" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16480">
+        <graphics name="C16480" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="227" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="38" name="cpd:C16479" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16479">
+        <graphics name="C16479" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="227" y="329" width="8" height="8"/>
+    </entry>
+    <entry id="39" name="cpd:C16478" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16478">
+        <graphics name="C16478" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="227" y="268" width="8" height="8"/>
+    </entry>
+    <entry id="40" name="cpd:C16482" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16482">
+        <graphics name="C16482" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="226" y="140" width="8" height="8"/>
+    </entry>
+    <entry id="41" name="cpd:C02359" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02359">
+        <graphics name="C02359" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="93" y="140" width="8" height="8"/>
+    </entry>
+    <entry id="42" name="cpd:C16483" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16483">
+        <graphics name="C16483" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="499" y="404" width="8" height="8"/>
+    </entry>
+    <entry id="43" name="cpd:C16481" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16481">
+        <graphics name="C16481" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="227" y="200" width="8" height="8"/>
+    </entry>
+    <entry id="44" name="cpd:C16477" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C16477">
+        <graphics name="C16477" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="646" y="268" width="8" height="8"/>
+    </entry>
+    <entry id="45" name="cpd:C02802" type="compound"
+        link="http://www.genome.jp/dbget-bin/www_bget?compound+C02802">
+        <graphics name="C02802" fgcolor="#000000" bgcolor="#FFFFFF"
+             type="circle" x="93" y="496" width="8" height="8"/>
+    </entry>
+    <relation entry1="4" entry2="5" type="ECrel">
+        <subtype name="compound" value="25"/>
+    </relation>
+    <relation entry1="5" entry2="7" type="maplink">
+        <subtype name="compound" value="25"/>
+    </relation>
+    <relation entry1="4" entry2="7" type="maplink">
+        <subtype name="compound" value="25"/>
+    </relation>
+    <reaction name="rn:R08121" type="irreversible">
+        <substrate name="cpd:C16476"/>
+        <product name="cpd:C02222"/>
+    </reaction>
+    <reaction name="rn:R08120" type="irreversible">
+        <substrate name="cpd:C16477"/>
+        <product name="cpd:C02222"/>
+    </reaction>
+</pathway>
