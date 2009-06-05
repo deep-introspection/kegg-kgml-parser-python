@@ -15,7 +15,26 @@ logging.basicConfig(level=logging.DEBUG)
 
 def KGML2Graph(xmlfile, filetype = 'organism'):
     """
+    Parse a KGML file and return a PyNetworkX graph object
 
+    You can retrieve kgml files from ftp://ftp.genome.jp/pub/kegg/xml/
+    (the ko folder is for generic pathways, the organism folder is per species)
+
+    >>> graphfile = 'data/hsa00510.xml'
+    >>> graph = KGML2Graph(graphfile)[1]
+
+    the filetype options is used to distinguish between ko files (general and containin ortholog entries) 
+    and files which are specific to an organism (e.g. file beginning with hsa etc..)
+
+    >>> graph.nodes()[0:5]
+    ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
+
+    >>> len(graph.nodes())
+    36
+
+    >>> graph.edges()[0:5]
+    [('ALG8', 'ALG10B'), ('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('ALG9', 'ALG12'), ('ALG9', 'ALG6')]
+ 
     """
     graph = networkx.Graph()
     nodes = {}
