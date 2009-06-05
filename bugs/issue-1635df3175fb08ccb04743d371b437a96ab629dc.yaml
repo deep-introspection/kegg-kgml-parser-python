@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: ko and hsa pathways are different
+desc: pathways begginning with 'ko' are general and contain entries of type 'ortholog' instead of genes
+type: :task
+component: to_discuss
+release: 
+reporter: Giovanni Dall'Olio <gioby@dayhoff>
+status: :unstarted
+disposition: 
+creation_time: 2009-06-05 09:57:56.353047 Z
+references: []
+
+id: 1635df3175fb08ccb04743d371b437a96ab629dc
+log_events: 
+- - 2009-06-05 09:57:56.880736 Z
+  - Giovanni Dall'Olio <gioby@dayhoff>
+  - created
+  - ""

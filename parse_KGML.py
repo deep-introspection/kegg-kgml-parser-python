@@ -20,9 +20,11 @@ def KGML2Graph(xmlfile):
     reactions = {}
 
     tree = ET.parse(xmlfile)
+
+    # parse and add nodes
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
-        if el.attrib['type'] in ('gene', 'compound', 'map'):       # something else?
+        if el.attrib['type']: #in ('gene', 'compound', 'map'):       # something else?
             name = el.attrib['name']
             id = el.attrib['id']
 #            if nodes.has_key(id):
@@ -34,13 +36,15 @@ def KGML2Graph(xmlfile):
             nodes[id] = (name, title, el.attrib['type'])
             if el.attrib['type'] == 'gene':
                 graph.add_node(title)
+    print nodes
 
+    # parse and add relations
     for rel in tree.getiterator('relation'):
         e1 = rel.attrib['entry1']
         e2 = rel.attrib['entry2']
-        print
-        print 'e1 ', nodes[e1]
-        print 'e2 ', nodes[e2] 
+        print e1, e2
+#        print 'e1 ', nodes[e1]
+#        print 'e2 ', nodes[e2] 
 
         for node in nodes[e1][0].split():
             print e1, node
