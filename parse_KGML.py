@@ -85,6 +85,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
 
 def plot_starlike(graph):
     networkx.draw_circular(graph)
+    pylab.savefig('sampleplot.png')
     pylab.show()
 
 if __name__ == '__main__':
