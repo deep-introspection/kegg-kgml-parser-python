@@ -10,6 +10,7 @@ Parse a KGML file and put in a PyNetworkX graph
 import xml.etree.ElementTree as ET
 import networkx
 import logging
+import pylab
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -84,6 +85,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
 
 def plot_starlike(graph):
     networkx.draw_circular(graph)
+    pylab.show()
 
 if __name__ == '__main__':
     import sys
@@ -101,3 +103,7 @@ if __name__ == '__main__':
     pathwaytype = args.pathwaytype
 
     (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, pathwaytype)
+
+    if args.draw_circular:
+        print 'plotting'
+        plot_starlike(graph)
