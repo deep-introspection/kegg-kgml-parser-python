@@ -49,6 +49,9 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     else:
         entriestype = ('ortholog', 'map', 'compound',)
 
+    # Get pathway title (store it in graph.title)
+    graph.title = tree.find('/').attrib['title']
+    
     # parse and add nodes
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
@@ -85,8 +88,13 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
 
 def plot_starlike(graph):
     networkx.draw_circular(graph)
-    pylab.savefig('sampleplot.png')
+    pylab.title(graph.title)
+    title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
+    pylab.savefig(title + '.png')
     pylab.show()
+
+def convert_to_gml(graph):
+    pass
 
 if __name__ == '__main__':
     import sys
