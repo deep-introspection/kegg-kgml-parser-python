@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: study the different graph formats
+desc: ""
+type: :task
+component: pyKEGGParser
+release: 
+reporter: Giovanni Dall'Olio <gioby@dayhoff>
+status: :unstarted
+disposition: 
+creation_time: 2009-06-05 17:58:59.284577 Z
+references: []
+
+id: 33fdd935a6e985d328442ef8771de1b321086b0e
+log_events: 
+- - 2009-06-05 17:59:01.155621 Z
+  - Giovanni Dall'Olio <gioby@dayhoff>
+  - created
+  - ""
