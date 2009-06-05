@@ -13,7 +13,10 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-def KGML2Graph(xmlfile):
+def KGML2Graph(xmlfile, filetype = 'organism'):
+    """
+
+    """
     graph = networkx.Graph()
     nodes = {}
     genes = []
@@ -21,10 +24,15 @@ def KGML2Graph(xmlfile):
 
     tree = ET.parse(xmlfile)
 
+    if filetype in ('organism', 'o'):
+        entriestype = ('gene', 'compound', 'map')
+    else:
+        entriestype = ('ortholog', 'map', 'compound',)
+
     # parse and add nodes
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
-        if el.attrib['type']: #in ('gene', 'compound', 'map'):       # something else?
+        if el.attrib['type'] in entriestype:       # something else?
             name = el.attrib['name']
             id = el.attrib['id']
 #            if nodes.has_key(id):
@@ -61,4 +69,4 @@ if __name__ == '__main__':
     import sys
     pathwayfile = sys.argv[1]
     print pathwayfile
-    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile)
+    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, 'ko')
