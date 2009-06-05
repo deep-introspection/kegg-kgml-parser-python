@@ -54,4 +54,7 @@ def plot_starlike(graph):
     networkx.draw_circular(graph)
 
 if __name__ == '__main__':
-    (tree, graph, nodes, genes, reactions) = KGML2Graph('hsa00510_n-glycan.xml')
+    import sys
+    pathwayfile = sys.argv[1]
+    print pathwayfile
+    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile)
