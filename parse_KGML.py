@@ -73,7 +73,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
             nodes[id] = (name, title, el.attrib['type'])
             if el.attrib['type'] == 'gene':
                 graph.add_node(title)
-#    print nodes
+#    logging.debug(nodes)
 
     # parse and add relations
     for rel in tree.getiterator('relation'):
@@ -108,6 +108,7 @@ def convert_to_gml(graph):
 if __name__ == '__main__':
     import sys
     import argparse
+    logging.basicConfig(level=logging.DEBUG)
     parser = argparse.ArgumentParser(description='parse a KGML pathway file and convert it to python/gml/image')
     parser.add_argument('-pathwayfile', '--pathway', dest='pathwayfile', type=str, default='data/hsa00510.xml')
     parser.add_argument('-type', dest='pathwaytype', type=str, choices=['ko', 'k', 'generic', 'general', 'organism', 'o'], 
@@ -116,7 +117,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '-draw_circular', dest='draw_circular', action='store_true', default=False)
     parser.add_argument('-g', '-write_gml', dest='write_gml', action='store_true', default=False)
     args = parser.parse_args()
-    print args
+    logging.debug(args)
 
     pathwayfile = args.pathwayfile
     pathwaytype = args.pathwaytype
@@ -124,9 +125,9 @@ if __name__ == '__main__':
     (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, pathwaytype)
 
     if args.draw_circular:
-        print 'plotting'
+        logging.debug('plotting')
         plot_starlike(graph)    
     
     if args.write_gml:
-        print 'plotting'
+        logging.debug('plotting')
         convert_to_gml(graph)
