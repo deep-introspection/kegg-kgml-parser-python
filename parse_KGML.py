@@ -2,7 +2,7 @@
 """
 Parse a KGML file and put in a PyNetworkX graph
 
->>> graphfile = 'hsa00510_n-glycan.xml'
+>>> graphfile = 'data/hsa00510.xml'
 
 >>> graph = KGML2Graph(graphfile)
 """
