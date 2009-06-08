@@ -6,3 +6,6 @@ debug_ko:
 
 test_:
 	nosetests --with-doctest
+
+clean:
+	-rm *.png *.gml
