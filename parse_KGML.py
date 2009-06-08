@@ -24,7 +24,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     >>> graphfile = 'data/hsa00510.xml'
     >>> graph = KGML2Graph(graphfile)[1]
 
-    the filetype options is used to distinguish between ko files (general and containin ortholog entries) 
+    the filetype option is used to distinguish between ko files (general and containin ortholog entries) 
     and files which are specific to an organism (e.g. file beginning with hsa etc..)
 
     >>> graph.nodes()[0:5]
@@ -62,9 +62,14 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
             title = el.find('graphics').attrib['name']
-            # little hack
+
+            # some nodes refer to more than a gene, and have a title in the form
+            # 'nameofthefirstgene...', e.g. 'ALG2...'
+            # As a temporary solution (to investigate more), I am just taking the name
+            # of the first gene/entity
             if title[-3:] == '...':
                 title = title[:-3]
+
             nodes[id] = (name, title, el.attrib['type'])
             if el.attrib['type'] == 'gene':
                 graph.add_node(title)
