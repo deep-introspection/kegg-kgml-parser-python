@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 import networkx
 import logging
 import pylab
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 
 def KGML2Graph(xmlfile, filetype = 'organism'):
