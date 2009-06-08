@@ -99,7 +99,11 @@ def plot_starlike(graph):
     pylab.show()
 
 def convert_to_gml(graph):
-    pass
+    """
+    write the pathway to the gml format
+    - http://www.infosun.fim.uni-passau.de/Graphlet/GML/
+    """
+    networkx.write_gml(graph, graph.title + '.gml')
 
 if __name__ == '__main__':
     import sys
@@ -110,6 +114,7 @@ if __name__ == '__main__':
                     default='o', help='type of the pathway (ko or specific to an organism?)')
     parser.add_argument('-d', '-draw', dest='draw_to_image', action='store_true', default=False)
     parser.add_argument('-c', '-draw_circular', dest='draw_circular', action='store_true', default=False)
+    parser.add_argument('-g', '-write_gml', dest='write_gml', action='store_true', default=False)
     args = parser.parse_args()
     print args
 
@@ -120,4 +125,8 @@ if __name__ == '__main__':
 
     if args.draw_circular:
         print 'plotting'
-        plot_starlike(graph)
+        plot_starlike(graph)    
+    
+    if args.write_gml:
+        print 'plotting'
+        convert_to_gml(graph)
