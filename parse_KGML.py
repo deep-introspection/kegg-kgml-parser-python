@@ -35,7 +35,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     36
 
     >>> graph.edges()[0:5]
-    [('ALG8', 'ALG10B'), ('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('ALG9', 'ALG12'), ('ALG9', 'ALG6')]
+    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
  
     """
     graph = KeggPathway()

@@ -12,7 +12,7 @@ class KeggPathway(networkx.DiGraph):
 
     >>> pw = KeggPathway()
     >>> pw.add_node('gene1')    # add_node will be modified to automatically 
-                                # convert all nodes in KeggNode objects
+    ...                         # convert all nodes in KeggNode objects
 
     """
     def add_node(self, n):
