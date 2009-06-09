@@ -1,5 +1,6 @@
 import unittest as U
 from parse_KGML import *
+from nose import SkipTest
 
 class _BaseKGMLFile(U.TestCase):
     """
@@ -17,7 +18,7 @@ class _BaseKGMLFile(U.TestCase):
     def setUpClass(cls):
         logging.basicConfig(level=None)
         if (not cls.known_values['edges'] or not cls.known_values['nodes'] or not cls.pathway_file):
-            raise TypeError("incomplete test unit")
+            raise SkipTest("incomplete test unit")
 
         (tree, graph, nodes, genes, reactions) = KGML2Graph(cls.pathway_file)
         cls.graph = graph

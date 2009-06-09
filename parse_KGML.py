@@ -14,6 +14,31 @@ import pylab
 #logging.basicConfig(level=logging.DEBUG)
 
 
+class KeggPathway(networkx.DiGraph):
+    """
+    Represent a Kegg Pathway. Derived from networkx.Digraph
+
+    >>> pw = KeggPathway()
+    >>> pw.add_node('gene1')    # add_node will be modified to automatically 
+                                # convert all nodes in KeggNode objects
+
+    """
+    pass
+
+class KeggNode(object):
+    """
+    A node in a KeggPathway graph.
+
+    Can be a gene, compound, etc..
+    >>> 
+    """
+    def __init__(self, name, type=''):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+
 def KGML2Graph(xmlfile, filetype = 'organism'):
     """
     Parse a KGML file and return a PyNetworkX graph object
@@ -37,7 +62,7 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     [('ALG8', 'ALG10B'), ('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('ALG9', 'ALG12'), ('ALG9', 'ALG6')]
  
     """
-    graph = networkx.Graph()
+    graph = KeggPathway()
     nodes = {}
     genes = []
     reactions = {}
@@ -79,14 +104,6 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
     for rel in tree.getiterator('relation'):
         e1 = rel.attrib['entry1']
         e2 = rel.attrib['entry2']
-#        print e1, e2
-#        print 'e1 ', nodes[e1]
-#        print 'e2 ', nodes[e2] 
-
-#        for node in nodes[e1][0].split():
-#            print e1, node
-#        for node in nodes[e2][0].split():
-#            print e2, node
         graph.add_edge(nodes[e1][1], nodes[e2][1])
    
     return tree, graph, nodes, genes, reactions
