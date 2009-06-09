@@ -32,10 +32,16 @@ class KeggNode(object):
     Can be a gene, compound, etc..
     >>> 
     """
-    def __init__(self, name, type=''):
+    def __init__(self, name, nodetype=''):
         self.name = name
 
+        self.type = nodetype  # in ('gene', 'compound', 
+        self.color = 0
+
     def __str__(self):
+        """
+        the __repr__ method makes sure that the networkx representation is fine
+        """
         return self.name
 
 
