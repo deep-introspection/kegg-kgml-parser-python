@@ -10,8 +10,11 @@ debug_plot:
 debug_gml:
 	ipython -pylab -i parse_KGML.py -- -p data/hsa00510.xml -t o -g
 
-test_:
-	nosetests --with-doctest
+test_doctests:
+	nosetests --with-doctest -v
+
+test_units:
+	nosetests --with-doctest test/ -v
 
 clean:
 	-rm *.png *.gml
