@@ -83,8 +83,7 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
                 node_title = node_title[:-3]
 
             nodes[id] = (name, node_title, node_type)
-            if el.attrib['type'] == 'gene':
-                graph.add_node(node_title, data={'type': node_type})
+            graph.add_node(node_title, data={'type': node_type})
 #    logging.debug(nodes)
 
     # parse and add relations
