@@ -34,6 +34,9 @@ class KeggPathway(networkx.LabeledDiGraph):
         """
         return self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
 
+    def __repr__(self):
+        return self.title + ' pathway' # TODO: __init__ method to make sure self.title exists
+
 #class KeggNode(str):    # StrMixin? networkx.Node?
 #    """
 #    A node in a KeggPathway graph.
