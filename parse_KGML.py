@@ -73,7 +73,10 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
             id = el.attrib['id']
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
-            node_title = el.find('graphics').attrib['name']
+            graphics = el.find('graphics')
+            node_title = graphics.attrib['name']
+            node_x = graphics.attrib['x']
+            node_y = graphics.attrib['y']
             logging.debug(node_title)
 
             # some nodes refer to more than a gene, and have a node_title in the form
@@ -84,7 +87,7 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
                 node_title = node_title[:-3]
 
             nodes[id] = (name, node_title, node_type)
-            graph.add_node(node_title, data={'type': node_type})
+            graph.add_node(node_title, data={'type': node_type, 'xy': (node_x, node_y)})
 #    logging.debug(nodes)
 
     # parse and add relations
