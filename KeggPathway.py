@@ -10,20 +10,14 @@ class KeggPathway(networkx.LabeledDiGraph):
     """
     Represent a Kegg Pathway. Derived from networkx.Digraph
 
-    >>> pw = KeggPathway()
-    >>> pw.add_node('gene1')
+    >>> p = KeggPathway()
+    >>> p.add_node('gene1', data={'type': 'gene', })
+
+#    >>> p.get_node('gene1')
 
     """
-#    def add_node(self, n):
-#        """
-#        redefining add_node.
-#        """
-##        n = KeggNode(n)
-#
-#        # TODO: call the original function instead of rewriting it
-#        if n not in self.succ:
-#            self.succ[n] = {}
-#            self.pred[n] = {}
+    def add_node(self, n, data):
+        networkx.LabeledDiGraph.add_node(self, n, data)
 
 
 #class KeggNode(str):    # StrMixin? networkx.Node?
