@@ -66,23 +66,25 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
         logging.debug(el.attrib['type'] + ' ' + el.attrib['id'])
-        if el.attrib['type'] in entriestype:       # something else?
+
+        node_type = el.attrib['type']   # can be ('gene', 'compound', 'map'..)
+        if node_type in entriestype:       # something else?
             name = el.attrib['name']
             id = el.attrib['id']
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
-            title = el.find('graphics').attrib['name']
+            node_title = el.find('graphics').attrib['name']
 
-            # some nodes refer to more than a gene, and have a title in the form
+            # some nodes refer to more than a gene, and have a node_title in the form
             # 'nameofthefirstgene...', e.g. 'ALG2...'
             # As a temporary solution (to investigate more), I am just taking the name
             # of the first gene/entity
-            if title[-3:] == '...':
-                title = title[:-3]
+            if node_title[-3:] == '...':
+                node_title = node_title[:-3]
 
-            nodes[id] = (name, title, el.attrib['type'])
+            nodes[id] = (name, node_title, node_type)
             if el.attrib['type'] == 'gene':
-                graph.add_node(title)
+                graph.add_node(node_title)
 #    logging.debug(nodes)
 
     # parse and add relations
