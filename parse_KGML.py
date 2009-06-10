@@ -13,7 +13,7 @@ import logging
 import pylab
 #logging.basicConfig(level=logging.DEBUG)
 
-from KeggPathway import KeggPathway, KeggNode
+from KeggPathway import KeggPathway#, KeggNode
 
 def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     """
