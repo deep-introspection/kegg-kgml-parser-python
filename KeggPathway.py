@@ -16,10 +16,10 @@ class KeggPathway(networkx.LabeledDiGraph):
 #    >>> p.get_node('gene1')
 
     """
-    def add_node(self, n, data=None):
+    def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.
         networkx.LabeledDiGraph.add_node(self, n, data)
 
-    def get_all_genes(self):
+    def get_genes(self):
         """
         return a subgraph composed only of the genes
 
@@ -28,9 +28,11 @@ class KeggPathway(networkx.LabeledDiGraph):
         >>> p.add_node('gene1', data={'type': 'gene'})
         >>> p.add_node('compound1', data={'type': 'compound'})
 
-        >>> print p.get_all_genes()
+        >>> subgraph = p.get_genes()
+        >>> print subgraph.nodes()
+        ['gene1']
         """
-        return self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])[1]
+        return self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
 
 #class KeggNode(str):    # StrMixin? networkx.Node?
 #    """
