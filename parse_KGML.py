@@ -74,6 +74,7 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
             node_title = el.find('graphics').attrib['name']
+            logging.debug(node_title)
 
             # some nodes refer to more than a gene, and have a node_title in the form
             # 'nameofthefirstgene...', e.g. 'ALG2...'

@@ -32,7 +32,9 @@ class KeggPathway(networkx.LabeledDiGraph):
         >>> print subgraph.nodes()
         ['gene1']
         """
-        return self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
+        subgraph = self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
+        subgraph.title = self.title + ' (genes)'
+        return subgraph
 
     def __repr__(self):
         return self.title + ' pathway' # TODO: __init__ method to make sure self.title exists
