@@ -32,12 +32,21 @@ class KeggNode(str):    # StrMixin? networkx.Node?
     A node in a KeggPathway graph.
 
     Can be a gene, compound, etc..
-    >>> 
+    >>> gene1 = KeggNode('gene1')#, nodetype='gene')
+    
+    KeggNodes are derived from str, therefore they can be used as such:
+    >>> gene1.find('g')
+    0
+
+    >>> d = {gene1: 0.2 }
+    >>> d.has_key('gene1')
+    True
+
     """
     def __init__(self, name, nodetype=''):
         self.name = name
 
-        self.type = nodetype  # in ('gene', 'compound', 
+        self.nodetype = nodetype  # in ('gene', 'compound', 'ortholog', 'metabolite')
         self.color = 0
 
     def __str__(self):

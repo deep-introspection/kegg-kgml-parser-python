@@ -15,7 +15,7 @@ import pylab
 
 from KeggPathway import KeggPathway, KeggNode
 
-def KGML2Graph(xmlfile, filetype = 'organism'):
+def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     """
     Parse a KGML file and return a PyNetworkX graph object
 
@@ -36,6 +36,11 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
 
     >>> graph.edges()[0:5]
     [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
+
+    
+    >>> graph2 = KGML2Graph(graphfile, filter_by=('gene', ))[1]
+    >>> graph2.edges()[0:4]
+    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ALG2', 'ALG1')]
  
     """
     graph = KeggPathway()
@@ -49,6 +54,10 @@ def KGML2Graph(xmlfile, filetype = 'organism'):
         entriestype = ('gene', 'compound', 'map')
     else:
         entriestype = ('ortholog', 'map', 'compound',)
+    if filter_by:
+        entriestype = tuple(filter_by)
+#    print filter_by     # TODO: enable filtering by only genes
+#    print entriestype
 
     # Get pathway title (store it in graph.title)
     graph.title = tree.find('/').attrib['title']
