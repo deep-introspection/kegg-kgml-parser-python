@@ -32,7 +32,7 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
 
     >>> len(graph.nodes())
-    36
+    72
 
     >>> graph.edges()[0:5]
     [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]

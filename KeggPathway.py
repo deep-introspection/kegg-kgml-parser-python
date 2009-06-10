@@ -16,6 +16,7 @@ class KeggPathway(networkx.LabeledDiGraph):
 #    >>> p.get_node('gene1')
 
     """
+    title = ''
     def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.
         networkx.LabeledDiGraph.add_node(self, n, data)
 
