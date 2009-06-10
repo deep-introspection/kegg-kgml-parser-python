@@ -6,7 +6,7 @@ You can use the function parse_KGML.KGML2Graph to create a KeggPathway object fr
 """
 import networkx
 
-class KeggPathway(networkx.DiGraph):
+class KeggPathway(networkx.LabeledDiGraph):
     """
     Represent a Kegg Pathway. Derived from networkx.Digraph
 
@@ -19,7 +19,7 @@ class KeggPathway(networkx.DiGraph):
         """
         redefining add_node.
         """
-        n = KeggNode(n)
+#        n = KeggNode(n)
 
         # TODO: call the original function instead of rewriting it
         if n not in self.succ:
