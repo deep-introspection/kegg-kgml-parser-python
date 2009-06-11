@@ -13,7 +13,8 @@ class KeggPathway(networkx.LabeledDiGraph):
     >>> p = KeggPathway()
     >>> p.add_node('gene1', data={'type': 'gene', })
 
-#    >>> p.get_node('gene1')
+    >>> p.get_node('gene1')
+    {'type': 'gene'}
 
     """
     title = ''
@@ -22,7 +23,7 @@ class KeggPathway(networkx.LabeledDiGraph):
 
     def get_genes(self):
         """
-        return a subgraph composed only of the genes
+        return a subgraph composed only by the genes
 
         >>> p = KeggPathway()
 
