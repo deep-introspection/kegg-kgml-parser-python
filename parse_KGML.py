@@ -28,18 +28,33 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     the filetype option is used to distinguish between ko files (general and containin ortholog entries) 
     and files which are specific to an organism (e.g. file beginning with hsa etc..)
 
+
+    KGML2Graph return a KeggPathway object, derived from networkx.LabeledGraph:
+    >>> print type(graph)
+    <class 'KeggPathway.KeggPathway'>
+
+    You can refer to help(networkx.LabeledGraph) and http://networkx.lanl.gov/reference/classes.labeledgraph.html
+    for documentation on methods available.
+
+    To get a list of the nodes, use the .nodes() method
     >>> graph.nodes()[0:5]
     ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
-
     >>> len(graph.nodes())
     72
-
     >>> graph.edges()[0:5]
     [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
 
-    
-    >>> graph2 = KGML2Graph(graphfile, filter_by=('gene', ))[1]
-    >>> graph2.edges()[0:4]
+    To get detailed informations on a node, use .get_node:
+    >>> graph.get_node('ALG8')
+    {'xy': (400, 408), 'type': 'gene'}
+
+    All the annotations (such as node type, etc..), are stored in the .label attribute
+    >>> graph.label['ALG8']     #doctest: +ELLIPSIS
+    {'xy': (400, 408), 'type': 'gene'}
+
+    To obtain a subgraph with only the genes of the pathway, it is recommended to use get_genes: 
+    >>> genes_graph = graph.get_genes()
+    >>> genes_graph.edges()[0:4]
     [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ALG2', 'ALG1')]
  
     """
@@ -54,9 +69,8 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
         entriestype = ('gene', 'compound', 'map')
     else:
         entriestype = ('ortholog', 'map', 'compound',)
-    if filter_by:
+    if filter_by:   # TODO: in principle, this won't be needed anymore. Create a full graph and then use get_genes method.
         entriestype = tuple(filter_by)
-#    print filter_by     # TODO: enable filtering by only genes
 #    print entriestype
 
     # Get pathway title (store it in graph.title)
@@ -75,7 +89,7 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
 #                raise TypeError('over writing a key')
             graphics = el.find('graphics')
             node_title = graphics.attrib['name']
-            node_x = int(graphics.attrib['x'])
+            node_x = int(graphics.attrib['x'])  # Storing the original X and Y to recreate KEGG layout
             node_y = int(graphics.attrib['y'])
             logging.debug(node_title)
 
