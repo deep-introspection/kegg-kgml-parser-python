@@ -32,10 +32,14 @@ class _BaseKGMLFile(U.TestCase):
         """
         Assert that Kegg2Graph parses nodes correctly
         """
-        self.assertEqual(self.known_values['nodes'], self.graph.nodes())
+        self.assertEqual(sorted(self.known_values['nodes']), sorted(self.graph.nodes()))
 
     def test_genes(self):
-        self.assertEqual(self.known_values['genes'], self.genes_graph.nodes())
+        known_genes = sorted(self.known_values['genes'])
+        graph_genes = sorted(self.genes_graph.nodes())
+        print set(known_genes).difference(set(graph_genes))
+        print set(graph_genes).difference(set(known_genes))
+        self.assertEqual(known_genes, graph_genes)
 
 class _BaseKOFile(_BaseKGMLFile):
     """
@@ -67,9 +71,9 @@ class test_GlycolisisHSA00010(_BaseOrganismFile):
             'C00186', 'C16255', 'Citrate cycle (TCA cycle)', 
             'TITLE:Glycolysis / Gluconeogenesis'],
         'genes': ['PCK1', 'BPGM', 'ALDH3A1', 'GAPDH', 'LDHAL6A', 'TPI1', 'AKR1A1', 
-            'FBP1', 'PKLR', 'PFKL', 'PGK1', 'PDHA1', 'GPI', 'DLD', 'ACSS2', 'GCK', 
+            'FBP1', 'PKLR', 'PFKL', 'PGK1', 'PDHA1', 'GPI',  'ACSS2', 'GCK', 
             'PGM1', 'ENO1', 'DLAT', 'ALDOA', 'GALM', 'G6PC', 'PGAM4', 'ALDH2', 
-            'ADH1A'],
+            'ADH1A', 'DLD'],
          'edges': ['']
     }
 
@@ -91,13 +95,19 @@ class test_NglycanHSA00510(_BaseOrganismFile):
             'G10526', 'MGAT1', 'C00381', 'G00171', 'MGAT3', 'G10599', 'C03021', 
             'DPM1', 'MGAT4B', 'RFT1', 'DPAGT1', 'G10597', 'G10595', 'G10596', 
             'FUT8'  ], 
-         'genes': [
-            'ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2', 'ALG3', 'ALG1', 'ALG6', 
-            'GANAB', 'ALG5', 'DOLPP1', 'ALG10B', 'DAD1', 
-            'MGAT5B', 'B4GALT1', 'DPM3', 'DPM2', 'DPM1', 'DPAGT1', 'MAN2A1', 'MGAT1', 
-            'MGAT2', 'MGAT3', 'ALG11', 'ALG12', 
-            'ALG13', 'ALG14', 'MAN1A2', 'MGAT4B', 'RFT1', 'FUT8'
-            ], 
+         'genes': ['RPN1', 'ALG8','ALG9', 'GCS1','ST6GAL1','ALG2','ALG3','ALG1',
+            'ALG6','RPN2','ALG5','DOLPP1','DDOST','ALG11','MGAT5','DAD1','MGAT5B',
+            'B4GALT1','B4GALT3','B4GALT2','DPM3','DPM2','DPM1','DPAGT1','GANAB',
+            'MAN2A1','MGAT1','MGAT2','MAN1C1','MGAT3','ALG10','STT3B','ALG12',
+            'ALG13','ALG14','MAN1A1','MAN1A2','MAN1B1','ALG10B','MGAT4A','MGAT4B',
+            'RFT1','FUT8'],          # These values have been annotated manually 
+#         'genes': [
+#            'ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2', 'ALG3', 'ALG1', 'ALG6', 
+#            'GANAB', 'ALG5', 'DOLPP1', 'ALG10B', 'DAD1', 
+#            'MGAT5B', 'B4GALT1', 'DPM3', 'DPM2', 'DPM1', 'DPAGT1', 'MAN2A1', 'MGAT1', 
+#            'MGAT2', 'MGAT3', 'ALG11', 'ALG12', 
+#            'ALG13', 'ALG14', 'MAN1A2', 'MGAT4B', 'RFT1', 'FUT8'
+#            ], 
         'edges': ['']
     }
 
