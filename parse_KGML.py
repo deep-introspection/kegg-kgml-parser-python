@@ -119,6 +119,18 @@ def plot_starlike(graph):
     pylab.savefig(title + '.png')
     pylab.show()
 
+
+def plot_original(graph):
+    pos = {}
+    for node in graph.nodes():
+        pos[node] = graph.get_node(node)['xy']
+    pylab.figure()
+    networkx.draw_networkx(graph, pos)
+    title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
+    pylab.savefig(title + '_original_layout.png')
+    pylab.show()
+
+
 def convert_to_gml(graph):
     """
     write the pathway to the gml format
@@ -148,6 +160,10 @@ if __name__ == '__main__':
     if args.draw_circular:
         logging.debug('plotting')
         plot_starlike(graph)    
+
+    if args.draw_to_image:
+        plot_original(graph)
+        plot_original(graph.get_genes())
     
     if args.write_gml:
         logging.debug('plotting')
