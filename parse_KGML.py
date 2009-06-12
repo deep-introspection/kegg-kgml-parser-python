@@ -113,10 +113,11 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     return tree, graph, nodes, genes, reactions
 
 def plot_starlike(graph):
+    pylab.figure()
     networkx.draw_circular(graph)
     pylab.title(graph.title)
     title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
-    pylab.savefig(title + '.png')
+    pylab.savefig('./plots/' + title + '.png')
     pylab.show()
 
 
@@ -127,7 +128,7 @@ def plot_original(graph):
     pylab.figure()
     networkx.draw_networkx(graph, pos)
     title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
-    pylab.savefig(title + '_original_layout.png')
+    pylab.savefig('./plots/' + title + '_original_layout.png')
     pylab.show()
 
 
@@ -160,6 +161,7 @@ if __name__ == '__main__':
     if args.draw_circular:
         logging.debug('plotting')
         plot_starlike(graph)    
+        plot_starlike(graph.get_genes())    
 
     if args.draw_to_image:
         plot_original(graph)

@@ -7,6 +7,9 @@ debug_ngly:
 debug_ko:
 	ipython	-pylab -i parse_KGML.py data/ko00020.xml
 
+debug_originalplot:
+	ipython -pylab -i parse_KGML.py -- -p data/hsa00510.xml -t o -d
+
 debug_plot:
 	ipython -pylab -i parse_KGML.py -- -p data/hsa00510.xml -t o -c
 
