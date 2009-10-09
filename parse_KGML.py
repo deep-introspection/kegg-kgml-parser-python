@@ -47,7 +47,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
     tree = ET.parse(xmlfile)
 
     # Determine whether this is a KO or organism-specific map
-    organism = tree.find('/').attrib['org']
+    organism = tree.find('/').get('org')
     if organism == 'ko':
         entriestype = ('ortholog', 'map', 'compound',)
     elif organism == 'ec':
@@ -56,25 +56,25 @@ def KGML2Graph(xmlfile, filter_by = ()):
         entriestype = ('gene', 'compound', 'map')
 
     # Get pathway title (store it in graph.title)
-    graph.title = tree.find('/').attrib['title']
-    graph.name = tree.find('/').attrib['name']
-    graph.id = tree.find('/').attrib['id']
+    graph.title = tree.find('/').get('title')
+    graph.name = tree.find('/').get('name')
+    graph.id = tree.find('/').get('id')
     
     # parse and add nodes
     for el in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
-        logging.debug(el.attrib['type'] + ' ' + el.attrib['id'])
+        logging.debug(el.get('type') + ' ' + el.get('id'))
 
-        node_type = el.attrib['type']   # can be ('gene', 'compound', 'map'..)
+        node_type = el.get('type')   # can be ('gene', 'compound', 'map'..)
         if node_type in entriestype:       # something else?
-            name = el.attrib['name']
-            id = el.attrib['id']
+            name = el.get('name')
+            id = el.get('id')
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
             graphics = el.find('graphics')
-            node_title = graphics.attrib['name']
-            node_x = int(graphics.attrib['x'])  # Storing the original X and Y to recreate KEGG layout
-            node_y = int(graphics.attrib['y'])
+            node_title = graphics.get('name')
+            node_x = int(graphics.get('x'))  # Storing the original X and Y to recreate KEGG layout
+            node_y = int(graphics.get('y'))
             logging.debug(node_title)
 
             # some nodes refer to more than a gene, and have a node_title in the form
@@ -90,8 +90,8 @@ def KGML2Graph(xmlfile, filter_by = ()):
 
     # parse and add relations
     for rel in tree.getiterator('relation'):
-        e1 = rel.attrib['entry1']
-        e2 = rel.attrib['entry2']
+        e1 = rel.get('entry1')
+        e2 = rel.get('entry2')
         graph.add_edge(nodes[e1][1], nodes[e2][1])
    
     return tree, graph, nodes, genes, reactions
