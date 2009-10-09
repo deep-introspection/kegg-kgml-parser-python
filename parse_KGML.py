@@ -66,27 +66,30 @@ def KGML2Graph(xmlfile, filter_by = ()):
         logging.debug(entry.get('type') + ' ' + entry.get('id'))
 
         node_type = entry.get('type')   # can be ('gene', 'compound', 'map'..)
-        if node_type in entriestype:       # something else?
-            name = entry.get('name')
-            id = entry.get('id')
+
+
+#        if node_type in entriestype:       # something else?
+        name = entry.get('name')
+        id = entry.get('id')
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
-            graphics = entry.find('graphics')
-            node_title = graphics.get('name')
-            node_x = int(graphics.get('x'))  # Storing the original X and Y to recreate KEGG layout
-            node_y = int(graphics.get('y'))
-            logging.debug(node_title)
+        graphics = entry.find('graphics')
+        node_title = graphics.get('name')
+        node_x = int(graphics.get('x'))  # Storing the original X and Y to recreate KEGG layout
+        node_y = int(graphics.get('y'))
+        logging.debug(node_title)
 
-            # some nodes refer to more than a gene, and have a node_title in the form
-            # 'nameofthefirstgene...', e.g. 'ALG2...'
-            # As a temporary solution (to investigate more), I am just taking the name
-            # of the first gene/entity
-            if node_title[-3:] == '...':
-                node_title = node_title[:-3]
+        # some nodes refer to more than a gene, and have a node_title in the form
+        # 'nameofthefirstgene...', e.g. 'ALG2...'
+        # As a temporary solution (to investigate more), I am just taking the name
+        # of the first gene/entity
+        if node_title[-3:] == '...':
+            node_title = node_title[:-3]
 
-            nodes[id] = (name, node_title, node_type)
-            graph.add_node(node_title, data={'type': node_type, 'xy': (node_x, node_y)})
+        nodes[id] = (name, node_title, node_type)
+        graph.add_node(node_title, data={'label': node_title, 'type': node_type, 'xy': (node_x, node_y)})
 #    logging.debug(nodes)
+
 
     # parse and add relations
     for rel in tree.getiterator('relation'):
