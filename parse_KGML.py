@@ -41,8 +41,8 @@ def KGML2Graph(xmlfile, filter_by = ()):
     graph = KeggPathway()
     nodes = {}
     genes = []
-    reactions = {}
-    relations = {}
+    graph.reactions = {}
+    graph.relations = {}
 
     tree = ET.parse(xmlfile)
 
@@ -93,8 +93,15 @@ def KGML2Graph(xmlfile, filter_by = ()):
         e1 = rel.get('entry1')
         e2 = rel.get('entry2')
         graph.add_edge(nodes[e1][1], nodes[e2][1])
+        graph.relations[e1+'_'+e2] = rel
    
-    return tree, graph, nodes, genes, reactions
+    for reaction in tree.getiterator('reaction'):
+        id = reaction.get('name')
+        substrate = reaction.find('substrate').get('name')
+        product = reaction.find('product').get('name')
+        graph.reactions[reaction] = reaction
+
+    return tree, graph, nodes, genes
 
 def plot_starlike(graph):
     pylab.figure()
@@ -137,7 +144,7 @@ if __name__ == '__main__':
 
     pathwayfile = args.pathwayfile
 
-    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile)
+    (tree, graph, nodes, genes) = KGML2Graph(pathwayfile)
 
     if args.draw_circular:
         logging.debug('plotting')
