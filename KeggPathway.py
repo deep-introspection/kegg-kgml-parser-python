@@ -45,6 +45,7 @@ class KeggPathway(networkx.LabeledDiGraph):
  
     """
     title = ''
+    labels = {}
     def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.
         networkx.LabeledDiGraph.add_node(self, n, data)
 
@@ -61,7 +62,14 @@ class KeggPathway(networkx.LabeledDiGraph):
         >>> print subgraph.nodes()
         ['gene1']
         """
-        subgraph = self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
+#        subgraph = self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
+        genes = []
+        for node in self.nodes():
+            if self.get_node(node)['type'] == 'gene':
+                genes.append(node)
+            else:
+                self.labels.pop(node)
+        subgraph = self.subgraph(genes)
         subgraph.title = self.title + ' (genes)'
         return subgraph
 
