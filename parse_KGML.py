@@ -47,7 +47,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
     tree = ET.parse(xmlfile)
 
     # Determine whether this is a KO or organism-specific map
-    organism = tree.find('/').get('org')
+    organism = tree.getroot().get('org')
     if organism == 'ko':
         entriestype = ('ortholog', 'map', 'compound',)
     elif organism == 'ec':
@@ -56,9 +56,9 @@ def KGML2Graph(xmlfile, filter_by = ()):
         entriestype = ('gene', 'compound', 'map')
 
     # Get pathway title (store it in graph.title)
-    graph.title = tree.find('/').get('title')
-    graph.name = tree.find('/').get('name')
-    graph.id = tree.find('/').get('id')
+    graph.title = tree.getroot().get('title')
+    graph.name = tree.getroot().get('name')
+    graph.id = tree.getroot().get('id')
     
     # parse and add nodes
     for el in tree.getiterator('entry'):
