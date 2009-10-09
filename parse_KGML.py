@@ -61,17 +61,17 @@ def KGML2Graph(xmlfile, filter_by = ()):
     graph.id = tree.getroot().get('id')
     
     # parse and add nodes
-    for el in tree.getiterator('entry'):
+    for entry in tree.getiterator('entry'):
         # get all genes or compounds, and associate ids to names
-        logging.debug(el.get('type') + ' ' + el.get('id'))
+        logging.debug(entry.get('type') + ' ' + entry.get('id'))
 
-        node_type = el.get('type')   # can be ('gene', 'compound', 'map'..)
+        node_type = entry.get('type')   # can be ('gene', 'compound', 'map'..)
         if node_type in entriestype:       # something else?
-            name = el.get('name')
-            id = el.get('id')
+            name = entry.get('name')
+            id = entry.get('id')
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
-            graphics = el.find('graphics')
+            graphics = entry.find('graphics')
             node_title = graphics.get('name')
             node_x = int(graphics.get('x'))  # Storing the original X and Y to recreate KEGG layout
             node_y = int(graphics.get('y'))
