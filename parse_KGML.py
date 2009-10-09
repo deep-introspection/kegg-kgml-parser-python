@@ -43,6 +43,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
     genes = []
     graph.reactions = {}
     graph.relations = {}
+    graph.labels = {}     # dictionary to keep node labels (gene name?)
 
     tree = ET.parse(xmlfile)
 
@@ -70,7 +71,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
 
 #        if node_type in entriestype:       # something else?
         name = entry.get('name')
-        id = entry.get('id')
+        node_id = entry.get('id')
 #            if nodes.has_key(id):
 #                raise TypeError('over writing a key')
         graphics = entry.find('graphics')
@@ -83,11 +84,12 @@ def KGML2Graph(xmlfile, filter_by = ()):
         # 'nameofthefirstgene...', e.g. 'ALG2...'
         # As a temporary solution (to investigate more), I am just taking the name
         # of the first gene/entity
-        if node_title[-3:] == '...':
-            node_title = node_title[:-3]
+#        if node_title[-3:] == '...':
+#            node_title = node_title[:-3]
 
-        nodes[id] = (name, node_title, node_type)
-        graph.add_node(node_title, data={'label': node_title, 'type': node_type, 'xy': (node_x, node_y)})
+        nodes[node_id] = (name, node_title, node_type)
+        graph.labels[node_id] = node_title
+        graph.add_node(node_id, data={'label': node_title, 'type': node_type, 'xy': (node_x, node_y)})
 #    logging.debug(nodes)
 
 
@@ -95,7 +97,8 @@ def KGML2Graph(xmlfile, filter_by = ()):
     for rel in tree.getiterator('relation'):
         e1 = rel.get('entry1')
         e2 = rel.get('entry2')
-        graph.add_edge(nodes[e1][1], nodes[e2][1])
+#        graph.add_edge(nodes[e1][1], nodes[e2][1])
+        graph.add_edge(e1, e2)
         graph.relations[e1+'_'+e2] = rel
    
     for reaction in tree.getiterator('reaction'):
@@ -108,7 +111,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
 
 def plot_starlike(graph):
     pylab.figure()
-    networkx.draw_circular(graph)
+    networkx.draw_circular(graph, labels=graph.labels)
     pylab.title(graph.title)
     title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
     pylab.savefig('./plots/' + title + '.png')
@@ -120,7 +123,7 @@ def plot_original(graph):
     for node in graph.nodes():
         pos[node] = graph.get_node(node)['xy']
     pylab.figure()
-    networkx.draw_networkx(graph, pos)
+    networkx.draw_networkx(graph, pos, labels=graph.labels)
     title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
     pylab.savefig('./plots/' + title + '_original_layout.png')
     pylab.show()
