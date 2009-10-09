@@ -15,7 +15,7 @@ import pylab
 
 from KeggPathway import KeggPathway#, KeggNode
 
-def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
+def KGML2Graph(xmlfile, filter_by = ()):
     """
     Parse a KGML file and return a PyNetworkX graph object
 
@@ -62,13 +62,17 @@ def KGML2Graph(xmlfile, filetype = 'organism', filter_by = ()):
     nodes = {}
     genes = []
     reactions = {}
+    relations = {}
 
     tree = ET.parse(xmlfile)
 
-    if filetype in ('organism', 'o'):
-        entriestype = ('gene', 'compound', 'map')
-    else:
+    organism = tree.find('/').attrib['org']
+    if organism == 'ko':
         entriestype = ('ortholog', 'map', 'compound',)
+    elif organism == 'ec':
+        raise NotImplementedError('Didn\'t implement EC pathways yet')
+    else:   # this is an organism-specific pathway
+        entriestype = ('gene', 'compound', 'map')
     if filter_by:   # TODO: in principle, this won't be needed anymore. Create a full graph and then use get_genes method.
         entriestype = tuple(filter_by)
 #    print entriestype
@@ -145,8 +149,6 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     parser = argparse.ArgumentParser(description='parse a KGML pathway file and convert it to python/gml/image')
     parser.add_argument('-pathwayfile', '--pathway', dest='pathwayfile', type=str, default='data/hsa00510.xml')
-    parser.add_argument('-type', dest='pathwaytype', type=str, choices=['ko', 'k', 'generic', 'general', 'organism', 'o'], 
-                    default='o', help='type of the pathway (ko or specific to an organism?)')
     parser.add_argument('-d', '-draw', dest='draw_to_image', action='store_true', default=False)
     parser.add_argument('-c', '-draw_circular', dest='draw_circular', action='store_true', default=False)
     parser.add_argument('-g', '-write_gml', dest='write_gml', action='store_true', default=False)
@@ -154,9 +156,8 @@ if __name__ == '__main__':
     logging.debug(args)
 
     pathwayfile = args.pathwayfile
-    pathwaytype = args.pathwaytype
 
-    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile, pathwaytype)
+    (tree, graph, nodes, genes, reactions) = KGML2Graph(pathwayfile)
 
     if args.draw_circular:
         logging.debug('plotting')
