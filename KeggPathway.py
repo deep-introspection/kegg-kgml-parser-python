@@ -12,10 +12,37 @@ class KeggPathway(networkx.LabeledDiGraph):
 
     >>> p = KeggPathway()
     >>> p.add_node('gene1', data={'type': 'gene', })
-
     >>> p.get_node('gene1')
     {'type': 'gene'}
 
+    We can use parse_KGML.KGML2Graph to obtain a graph object:
+    >>> from parse_KGML import KGML2Graph
+    >>> graphfile = 'data/hsa00510.xml'
+    >>> graph = KGML2Graph(graphfile)[1]
+
+
+    To get a list of the nodes, use the .nodes() method
+    >>> graph.nodes()[0:5]
+    ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
+    >>> len(graph.nodes())
+    72
+    >>> graph.edges()[0:5]
+    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
+
+    To get detailed informations on a node, use .get_node:
+    >>> graph.get_node('ALG8')
+    {'xy': (400, 408), 'type': 'gene'}
+
+    All the annotations (such as node type, etc..), are stored in the .label attribute
+    >>> graph.label['ALG8']     #doctest: +ELLIPSIS
+    {'xy': (400, 408), 'type': 'gene'}
+
+    To obtain a subgraph with only the genes of the pathway, it is recommended to use get_genes: 
+    >>> genes_graph = graph.get_genes()
+    >>> genes_graph.edges()[0:4]
+    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ALG2', 'ALG1')]
+ 
+ 
     """
     title = ''
     def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.

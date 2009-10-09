@@ -33,30 +33,10 @@ def KGML2Graph(xmlfile, filter_by = ()):
     >>> print type(graph)
     <class 'KeggPathway.KeggPathway'>
 
+    See help(KGMLGraph) for more docs.
     You can refer to help(networkx.LabeledGraph) and http://networkx.lanl.gov/reference/classes.labeledgraph.html
     for documentation on methods available.
 
-    To get a list of the nodes, use the .nodes() method
-    >>> graph.nodes()[0:5]
-    ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
-    >>> len(graph.nodes())
-    72
-    >>> graph.edges()[0:5]
-    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
-
-    To get detailed informations on a node, use .get_node:
-    >>> graph.get_node('ALG8')
-    {'xy': (400, 408), 'type': 'gene'}
-
-    All the annotations (such as node type, etc..), are stored in the .label attribute
-    >>> graph.label['ALG8']     #doctest: +ELLIPSIS
-    {'xy': (400, 408), 'type': 'gene'}
-
-    To obtain a subgraph with only the genes of the pathway, it is recommended to use get_genes: 
-    >>> genes_graph = graph.get_genes()
-    >>> genes_graph.edges()[0:4]
-    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ALG2', 'ALG1')]
- 
     """
     graph = KeggPathway()
     nodes = {}
@@ -66,6 +46,7 @@ def KGML2Graph(xmlfile, filter_by = ()):
 
     tree = ET.parse(xmlfile)
 
+    # Determine whether this is a KO or organism-specific map
     organism = tree.find('/').attrib['org']
     if organism == 'ko':
         entriestype = ('ortholog', 'map', 'compound',)
@@ -73,12 +54,11 @@ def KGML2Graph(xmlfile, filter_by = ()):
         raise NotImplementedError('Didn\'t implement EC pathways yet')
     else:   # this is an organism-specific pathway
         entriestype = ('gene', 'compound', 'map')
-    if filter_by:   # TODO: in principle, this won't be needed anymore. Create a full graph and then use get_genes method.
-        entriestype = tuple(filter_by)
-#    print entriestype
 
     # Get pathway title (store it in graph.title)
     graph.title = tree.find('/').attrib['title']
+    graph.name = tree.find('/').attrib['name']
+    graph.id = tree.find('/').attrib['id']
     
     # parse and add nodes
     for el in tree.getiterator('entry'):
