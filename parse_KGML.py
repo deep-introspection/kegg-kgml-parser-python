@@ -7,7 +7,7 @@ Parse a KGML file and put in a PyNetworkX graph
 >>> graph = KGML2Graph(graphfile)
 """
 
-import xml.etree.ElementTree as ET
+import xml.etree.cElementTree as ET
 import networkx
 import logging
 import pylab
