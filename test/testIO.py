@@ -21,7 +21,7 @@ class _BaseKGMLFile(U.TestCase):
         if (not cls.known_values['edges'] or not cls.known_values['nodes'] or not cls.pathway_file): #TODO: update
             raise SkipTest("incomplete test unit")
 
-        (tree, graph, nodes, genes, reactions) = KGML2Graph(cls.pathway_file)
+        (tree, graph, nodes, genes) = KGML2Graph(cls.pathway_file)
         cls.graph = graph
         cls.genes_graph = graph.get_genes()
 
@@ -32,14 +32,16 @@ class _BaseKGMLFile(U.TestCase):
         """
         Assert that Kegg2Graph parses nodes correctly
         """
-        self.assertEqual(sorted(self.known_values['nodes']), sorted(self.graph.nodes()))
+        labels = [self.graph.get_node(n)['label'] for n in self.graph.nodes()]
+        self.assertEqual(sorted(self.known_values['nodes']), labels)
 
     def test_genes(self):
         known_genes = sorted(self.known_values['genes'])
         graph_genes = sorted(self.genes_graph.nodes())
-        print set(known_genes).difference(set(graph_genes))
-        print set(graph_genes).difference(set(known_genes))
-        self.assertEqual(known_genes, graph_genes)
+        graph_labels = [self.graph.get_node(n)['label'] for n in self.graph.nodes()]
+        print set(known_genes).difference(set(graph_labels))
+        print set(graph_labels).difference(set(known_genes))
+        self.assertEqual(known_genes, graph_labels)
 
 class _BaseKOFile(_BaseKGMLFile):
     """
