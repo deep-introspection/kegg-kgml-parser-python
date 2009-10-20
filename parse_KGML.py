@@ -4,7 +4,7 @@ Parse a KGML file and put in a PyNetworkX graph
 
 >>> graphfile = 'data/hsa00510.xml'
 
->>> graph = KGML2Graph(graphfile)
+>>> pathway = KGML2Graph(graphfile)
 """
 
 import xml.etree.cElementTree as ET
@@ -23,14 +23,14 @@ def KGML2Graph(xmlfile, filter_by = ()):
     (the ko folder is for generic pathways, the organism folder is per species)
 
     >>> graphfile = 'data/hsa00510.xml'
-    >>> graph = KGML2Graph(graphfile)[1]
+    >>> pathway = KGML2Graph(graphfile)[1]
 
     the filetype option is used to distinguish between ko files (general and containin ortholog entries) 
     and files which are specific to an organism (e.g. file beginning with hsa etc..)
 
 
     KGML2Graph return a KeggPathway object, derived from networkx.LabeledGraph:
-    >>> print type(graph)
+    >>> print type(pathway)
     <class 'KeggPathway.KeggPathway'>
 
     See help(KGMLGraph) for more docs.
@@ -38,12 +38,12 @@ def KGML2Graph(xmlfile, filter_by = ()):
     for documentation on methods available.
 
     """
-    graph = KeggPathway()
+    pathway = KeggPathway()
     nodes = {}
     genes = []
-    graph.reactions = {}
-    graph.relations = {}
-    graph.labels = {}     # dictionary to keep node labels (gene name?)
+    pathway.reactions = {}
+    pathway.relations = {}
+    pathway.labels = {}     # dictionary to keep node labels (gene name?)
 
     tree = ET.parse(xmlfile)
 
@@ -56,10 +56,10 @@ def KGML2Graph(xmlfile, filter_by = ()):
     else:   # this is an organism-specific pathway
         entriestype = ('gene', 'compound', 'map')
 
-    # Get pathway title (store it in graph.title)
-    graph.title = tree.getroot().get('title')
-    graph.name = tree.getroot().get('name')
-    graph.id = tree.getroot().get('id')
+    # Get pathway title (store it in pathway.title)
+    pathway.title = tree.getroot().get('title')
+    pathway.name = tree.getroot().get('name')
+    pathway.id = tree.getroot().get('id')
     
     # parse and add nodes
     for entry in tree.getiterator('entry'):
@@ -88,8 +88,8 @@ def KGML2Graph(xmlfile, filter_by = ()):
 #            node_title = node_title[:-3]
 
         nodes[node_id] = (name, node_title, node_type)
-        graph.labels[node_id] = node_title
-        graph.add_node(node_id, data={'label': node_title, 'type': node_type, 'xy': (node_x, node_y)})
+        pathway.labels[node_id] = node_title
+        pathway.add_node(node_id, data={'label': node_title, 'type': node_type, 'xy': (node_x, node_y)})
 #    logging.debug(nodes)
 
 
@@ -97,44 +97,44 @@ def KGML2Graph(xmlfile, filter_by = ()):
     for rel in tree.getiterator('relation'):
         e1 = rel.get('entry1')
         e2 = rel.get('entry2')
-#        graph.add_edge(nodes[e1][1], nodes[e2][1])
-        graph.add_edge(e1, e2)
-        graph.relations[e1+'_'+e2] = rel
+#        pathway.add_edge(nodes[e1][1], nodes[e2][1])
+        pathway.add_edge(e1, e2)
+        pathway.relations[e1+'_'+e2] = rel
    
     for reaction in tree.getiterator('reaction'):
         id = reaction.get('name')
         substrate = reaction.find('substrate').get('name')
         product = reaction.find('product').get('name')
-        graph.reactions[reaction] = reaction
+        pathway.reactions[reaction] = reaction
 
-    return tree, graph, nodes, genes
+    return tree, pathway, nodes, genes
 
-def plot_starlike(graph):
+def plot_starlike(pathway):
     pylab.figure()
-    networkx.draw_circular(graph, labels=graph.labels)
-    pylab.title(graph.title)
-    title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
+    networkx.draw_circular(pathway, labels=pathway.labels)
+    pylab.title(pathway.title)
+    title = pathway.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
     pylab.savefig('./plots/' + title + '.png')
     pylab.show()
 
 
-def plot_original(graph):
+def plot_original(pathway):
     pos = {}
-    for node in graph.nodes():
-        pos[node] = graph.get_node(node)['xy']
+    for node in pathway.nodes():
+        pos[node] = pathway.get_node(node)['xy']
     pylab.figure()
-    networkx.draw_networkx(graph, pos, labels=graph.labels)
-    title = graph.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
+    networkx.draw_networkx(pathway, pos, labels=pathway.labels)
+    title = pathway.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
     pylab.savefig('./plots/' + title + '_original_layout.png')
     pylab.show()
 
 
-def convert_to_gml(graph):
+def convert_to_gml(pathway):
     """
     write the pathway to the gml format
     - http://www.infosun.fim.uni-passau.de/Graphlet/GML/
     """
-    networkx.write_gml(graph, graph.title + '.gml')
+    networkx.write_gml(pathway, pathway.title + '.gml')
 
 if __name__ == '__main__':
     import sys
@@ -150,17 +150,17 @@ if __name__ == '__main__':
 
     pathwayfile = args.pathwayfile
 
-    (tree, graph, nodes, genes) = KGML2Graph(pathwayfile)
+    (tree, pathway, nodes, genes) = KGML2Graph(pathwayfile)
 
     if args.draw_circular:
         logging.debug('plotting')
-        plot_starlike(graph)    
-        plot_starlike(graph.get_genes())    
+        plot_starlike(pathway)    
+        plot_starlike(pathway.get_genes())    
 
     if args.draw_to_image:
-        plot_original(graph)
-        plot_original(graph.get_genes())
+        plot_original(pathway)
+        plot_original(pathway.get_genes())
     
     if args.write_gml:
         logging.debug('plotting')
-        convert_to_gml(graph)
+        convert_to_gml(pathway)
