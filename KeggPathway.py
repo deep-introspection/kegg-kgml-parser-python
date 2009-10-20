@@ -24,24 +24,35 @@ class KeggPathway(networkx.LabeledDiGraph):
 
     To get a list of the nodes, use the .nodes() method
     >>> graph.nodes()[0:5]
-    ['ALG8', 'ALG9', 'GCS1', 'ST6GAL1', 'ALG2']
+    ['56', '54', '42', '48', '43']
     >>> len(graph.nodes())
-    72
+    76
+    >>> print [graph.get_node(n)['label'] for n in graph.nodes()][0:5]
+    ['MGAT1', 'MGAT2', 'C01246', 'TITLE:N-Glycan biosynthesis', 'C03862']
+
     >>> graph.edges()[0:5]
-    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ST6GAL1', 'Other glycan degradation'), ('ALG2', 'ALG1')]
+    [('56', '57'), ('54', '55'), ('54', '37'), ('54', '58'), ('60', '62')]
 
     To get detailed informations on a node, use .get_node:
-    >>> graph.get_node('ALG8')
-    {'xy': (400, 408), 'type': 'gene'}
+    >>> graph.get_node('10')
+    {'xy': (580, 317), 'type': 'gene', 'label': 'ALG12'}
 
     All the annotations (such as node type, etc..), are stored in the .label attribute
-    >>> graph.label['ALG8']     #doctest: +ELLIPSIS
-    {'xy': (400, 408), 'type': 'gene'}
+    >>> graph.label['10']     #doctest: +ELLIPSIS
+    {'xy': (580, 317), 'type': 'gene', 'label': 'ALG12'}
 
     To obtain a subgraph with only the genes of the pathway, it is recommended to use get_genes: 
     >>> genes_graph = graph.get_genes()
     >>> genes_graph.edges()[0:4]
-    [('ALG8', 'ALG6'), ('ALG9', 'ALG3'), ('GCS1', 'DAD1'), ('ALG2', 'ALG1')]
+    [('60', '62'), ('63', '3'), ('63', '2'), ('63', '72')]
+
+    >>> for (node1, node2) in genes_graph.edges()[0:4]:
+    ...     print genes_graph.get_node(node1)['label'], genes_graph.get_node(node2)['label']
+    GCS1 DAD1...
+    ALG5 DPM2
+    ALG5 DPM3
+    ALG5 DPAGT1
+
  
  
     """
@@ -70,7 +81,7 @@ class KeggPathway(networkx.LabeledDiGraph):
         for node in self.nodes():
             if self.get_node(node)['type'] == 'gene':
                 genes.append(node)
-                labels[node] = self.labels[node]
+                labels[node] = self.get_node(node)
 #            else:
 #                self.labels.pop(node)
         subgraph = self.subgraph(genes)
@@ -88,11 +99,11 @@ class KeggPathway(networkx.LabeledDiGraph):
         >>> p.add_node(2, data={'label': 'gene2'})
         >>> p.add_edge(1, 2)
 
-        >>> p.neighbours(1)
+        >>> p.neighbors(1)
         [2]
 
         >>> p.neighbors_labels(1)
-        'gene2'
+        {'gene1': ['gene2']}
         """
         neighbours = self.neighbors(node)
         labels = [self.get_node(n)['label'] for n in neighbours]
