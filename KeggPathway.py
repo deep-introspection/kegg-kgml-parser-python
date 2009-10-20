@@ -8,7 +8,8 @@ import networkx
 
 class KeggPathway(networkx.LabeledDiGraph):
     """
-    Represent a Kegg Pathway. Derived from networkx.Digraph
+    Represent a Kegg Pathway. Derived from networkx.Digraph, it adds:
+    - reactions: a dictionary of all the reactions in the file
 
     >>> p = KeggPathway()
     >>> p.add_node('gene1', data={'type': 'gene', })
@@ -46,6 +47,7 @@ class KeggPathway(networkx.LabeledDiGraph):
     """
     title = ''
     labels = {}
+    reactions = {}
     def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.
         networkx.LabeledDiGraph.add_node(self, n, data)
 
@@ -75,6 +77,27 @@ class KeggPathway(networkx.LabeledDiGraph):
         subgraph.title = self.title + ' (genes)'
         subgraph.labels = labels
         return subgraph
+
+    def neighbors_labels(self, node):
+        """
+        like networkx.graph.neighbours, but returns gene label
+
+        >>> p = KeggPathway()
+
+        >>> p.add_node(1, data={'label': 'gene1'})
+        >>> p.add_node(2, data={'label': 'gene2'})
+        >>> p.add_edge(1, 2)
+
+        >>> p.neighbours(1)
+        [2]
+
+        >>> p.neighbors_labels(1)
+        'gene2'
+        """
+        neighbours = self.neighbors(node)
+        labels = [self.get_node(n)['label'] for n in neighbours]
+        return {self.get_node(node)['label']: labels}
+
 
     def __repr__(self):
         return self.title + ' pathway' # TODO: __init__ method to make sure self.title exists
