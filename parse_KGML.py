@@ -101,11 +101,21 @@ def KGML2Graph(xmlfile, filter_by = ()):
         pathway.add_edge(e1, e2)
         pathway.relations[e1+'_'+e2] = rel
    
+
+    # Add reactions to pathway object
     for reaction in tree.getiterator('reaction'):
+
         id = reaction.get('name')
-        substrate = reaction.find('substrate').get('name')
-        product = reaction.find('product').get('name')
-        pathway.reactions[reaction] = reaction
+        substrates = []
+        products = []
+
+        for sub in reaction.getiterator('substrate'):
+            substrates.append(sub.get('name'))
+
+        for prod in reaction.getiterator('product'):
+            products.append(sub.get('name'))
+
+        pathway.reactions[id] = {'reaction': reaction, 'substrates': substrates, 'products': products}
 
     return tree, pathway, nodes, genes
 
