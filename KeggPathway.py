@@ -13,7 +13,7 @@ class KeggPathway(networkx.DiGraph):
 
     >>> p = KeggPathway()
     >>> p.add_node('gene1', data={'type': 'gene', })
-    >>> p.get_node('gene1')
+    >>> p.['gene1']
     {'type': 'gene'}
 
     We can use parse_KGML.KGML2Graph to obtain a graph object:
@@ -27,14 +27,14 @@ class KeggPathway(networkx.DiGraph):
     ['56', '54', '42', '48', '43']
     >>> len(graph.nodes())
     76
-    >>> print [graph.get_node(n)['label'] for n in graph.nodes()][0:5]
+    >>> print [graph.node[n]['label'] for n in graph.nodes()][0:5]
     ['MGAT1', 'MGAT2', 'C01246', 'TITLE:N-Glycan biosynthesis', 'C03862']
 
     >>> graph.edges()[0:5]
     [('56', '57'), ('54', '55'), ('54', '37'), ('54', '58'), ('60', '62')]
 
-    To get detailed informations on a node, use .get_node:
-    >>> graph.get_node('10')
+    To get detailed informations on a node, use .node:
+    >>> graph.node['10']
     {'xy': (580, 317), 'type': 'gene', 'label': 'ALG12'}
 
     All the annotations (such as node type, etc..), are stored in the .label attribute
@@ -47,7 +47,7 @@ class KeggPathway(networkx.DiGraph):
     [('60', '62'), ('63', '3'), ('63', '2'), ('63', '72')]
 
     >>> for (node1, node2) in genes_graph.edges()[0:4]:
-    ...     print genes_graph.get_node(node1)['label'], genes_graph.get_node(node2)['label']
+    ...     print genes_graph.node[node1]['label'], genes_graph.node[node2]['label']
     GCS1 DAD1...
     ALG5 DPM2
     ALG5 DPM3
@@ -75,7 +75,7 @@ class KeggPathway(networkx.DiGraph):
         >>> print subgraph.nodes()
         ['gene1']
         """
-#        subgraph = self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
+#        subgraph = self.subgraph([node for node in self.nodes() if self.node[node]['type'] == 'gene'])
         genes = []
         labels = {}
         for n in self.nodes():
@@ -106,8 +106,8 @@ class KeggPathway(networkx.DiGraph):
         {'gene1': ['gene2']}
         """
         neighbours = self.neighbors(node)
-        labels = [self.get_node(n)['label'] for n in neighbours]
-        return {self.get_node(node)['label']: labels}
+        labels = [self.node[n]['label'] for n in neighbours]
+        return {self.node[node]['label']: labels}
 
 
     def __repr__(self):

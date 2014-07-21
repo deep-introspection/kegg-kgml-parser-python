@@ -32,16 +32,16 @@ class _BaseKGMLFile(U.TestCase):
         """
         Assert that Kegg2Graph parses nodes correctly
         """
-        labels = [self.graph.get_node(n)['label'] for n in self.graph.nodes()]
-        self.assertEqual(sorted(self.known_values['nodes']), labels)
+        labels = [self.graph.node[n]['label'] for n in self.graph.nodes()]
+        self.assertEqual(sorted(self.known_values['nodes']), sorted(labels))
 
     def test_genes(self):
         known_genes = sorted(self.known_values['genes'])
         graph_genes = sorted(self.genes_graph.nodes())
-        graph_labels = [self.graph.get_node(n)['label'] for n in self.graph.nodes()]
+        graph_labels = [self.graph.node[n]['label'] for n in self.graph.nodes()]
         print set(known_genes).difference(set(graph_labels))
         print set(graph_labels).difference(set(known_genes))
-        self.assertEqual(known_genes, graph_labels)
+        self.assertEqual(known_genes, sorted(graph_labels))
 
 class _BaseKOFile(_BaseKGMLFile):
     """
