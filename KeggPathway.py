@@ -6,7 +6,7 @@ You can use the function parse_KGML.KGML2Graph to create a KeggPathway object fr
 """
 import networkx
 
-class KeggPathway(networkx.LabeledDiGraph):
+class KeggPathway(networkx.DiGraph):
     """
     Represent a Kegg Pathway. Derived from networkx.Digraph, it adds:
     - reactions: a dictionary of all the reactions in the file
@@ -78,10 +78,10 @@ class KeggPathway(networkx.LabeledDiGraph):
 #        subgraph = self.subgraph([node for node in self.nodes() if self.get_node(node)['type'] == 'gene'])
         genes = []
         labels = {}
-        for node in self.nodes():
-            if self.get_node(node)['type'] == 'gene':
-                genes.append(node)
-                labels[node] = self.get_node(node)
+        for n in self.nodes():
+            if self.node[n]['type'] == 'gene':
+                genes.append(n)
+                labels[n] = self.node[n]
 #            else:
 #                self.labels.pop(node)
         subgraph = self.subgraph(genes)

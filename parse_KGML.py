@@ -130,8 +130,8 @@ def plot_starlike(pathway):
 
 def plot_original(pathway):
     pos = {}
-    for node in pathway.nodes():
-        pos[node] = pathway.get_node(node)['xy']
+    for n in pathway.nodes():
+        pos[n] = pathway.node[n]['xy']
     pylab.figure()
     networkx.draw_networkx(pathway, pos, labels=pathway.labels)
     title = pathway.title.replace('/', '-') # TODO: which is the proper way to remove / in a filename?
