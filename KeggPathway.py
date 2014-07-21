@@ -60,7 +60,7 @@ class KeggPathway(networkx.LabeledDiGraph):
     labels = {}
     reactions = {}
     def add_node(self, n, data=None):   # TODO: in principle, I should redefine all the add_node functions to make sure they contain the right data.
-        networkx.LabeledDiGraph.add_node(self, n, data)
+        networkx.DiGraph.add_node(self, n, data)
 
     def get_genes(self):
         """
