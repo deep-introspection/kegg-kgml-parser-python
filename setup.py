@@ -12,7 +12,7 @@ from setuptools import setup
 from os.path import join, dirname
 import src
 
-scripts = ['src/KeggPathway.py', 'src/parse_KGML.py']
+scripts = ['src/__init__.py', 'src/KeggPathway.py', 'src/parse_KGML.py']
 long_description = """An (obsolete) parser for KEGG XML files
 
 Install it 
@@ -28,7 +28,7 @@ setup(name = 'KEGGParser',
     author = "Giovanni M. Dall'Olio + Guillaume Dumas",
     author_email = "giovanni.dallolio@kcl.ac.uk",
     url = 'https://github.com/dalloliogm/kegg-kgml-parser--python-',
-    packages=['src'],
+#    packages=['src'],
 #    py_modules = ['KeggPathway'],
 #    scripts = scripts,
     classifiers=[
