@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# setup for the VCF2Space suite
+# setup for the KEGG Parser
 #
 # use the following to install:
 # 
@@ -8,29 +8,18 @@
 #
 
 import os
-from setuptools import setup
-from os.path import join, dirname
-import src
+from setuptools import setup, find_packages
 
-scripts = ['src/__init__.py', 'src/KeggPathway.py', 'src/parse_KGML.py']
-long_description = """An (obsolete) parser for KEGG XML files
-
-Install it 
-
-"""
-
-
-setup(name = 'KEGGParser',
-    version = 0.2,
+setup(
+    name = 'KEGGParser',
+    version = 0.3,
     description = 'KEGG Parser',
-    long_description = long_description,
-#    long_description = open('README.rst').read(),
-    author = "Giovanni M. Dall'Olio + Guillaume Dumas",
+    long_description = open('README.rst').read(),
+    author = "Giovanni M. Dall'Olio & Guillaume Dumas",
     author_email = "giovanni.dallolio@kcl.ac.uk",
     url = 'https://github.com/dalloliogm/kegg-kgml-parser--python-',
-#    packages=['src'],
-#    py_modules = ['KeggPathway'],
-#    scripts = scripts,
+    package_data = {'': ['*.xml']},
+    packages = find_packages(exclude=["tests", "plots","bugs"]),
     classifiers=[
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
@@ -41,7 +30,7 @@ setup(name = 'KEGGParser',
     keywords='KEGG, pathways, parser',
     license='GPL',
 
-#    data_files = ['README.rst'],
+    data_files = ['README.rst'],
     install_requires=[
 #        'setuptools',
         'networkx'
