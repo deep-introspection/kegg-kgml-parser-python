@@ -14,7 +14,7 @@ setup(
     name = 'KEGGParser',
     version = 0.3,
     description = 'KEGG Parser',
-    long_description = open('README.rst').read(),
+    long_description = open('README.md').read(),
     author = "Giovanni M. Dall'Olio & Guillaume Dumas",
     author_email = "giovanni.dallolio@kcl.ac.uk",
     url = 'https://github.com/dalloliogm/kegg-kgml-parser--python-',
@@ -30,7 +30,7 @@ setup(
     keywords='KEGG, pathways, parser',
     license='GPL',
 
-    data_files = ['README.rst'],
+    data_files = ['README.md'],
     install_requires=[
 #        'setuptools',
         'networkx'
