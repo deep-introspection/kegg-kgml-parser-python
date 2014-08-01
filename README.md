@@ -8,7 +8,7 @@ You can install it from the python dist utils:
 
 Then in python:
 
-> from keggparser import *
+> from keggparser import KeggPathway, parse_KGML
 
 Finally to parse a KGML file:
 
